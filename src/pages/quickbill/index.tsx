@@ -1,0 +1,67 @@
+import React, {useEffect, useState} from "react";
+import Taro from "@tarojs/taro";
+import {View, Text} from "@tarojs/components"
+import * as dayjs from 'dayjs'
+
+import { Row, Col, Tag, Image } from "@antmjs/vantui"; 
+
+const QuickBill = () => {
+    const [data, setData] = useState()
+
+    useEffect(() => {
+        Taro.request({
+          url: "http://localhost:8080/api/v1/base/product/",
+          method: "GET",
+          success: (res) => {
+            setData(() => {
+              console.log(res.data.data[3].picture)
+              return res.data.data
+            })
+            Taro.hideLoading()
+          },
+          fail: (err) => {
+            console.log(err, "失败了")
+          }
+        })
+      }, [])
+
+
+    return (
+        <View style={{marginTop: '15px', backgroundColor: "white"}}>
+            <Row>
+                <Col span={24}>
+                    <Text style={{fontSize: '30px'}}>{dayjs().format('MM月DD日')}速购单</Text>
+                    <Tag type="primary" plain={ true } size={"medium"} style={{bottom: '5px'}}>
+                        3件商品
+                    </Tag>
+                </Col>
+            </Row>
+            <View>
+                {
+                    data?.length ? <Image style="width: 8rem; height: 8rem; position: 'relative'" src={data[3].picture} />
+                    : <></>
+                }
+                <View style={{marginLeft: '30px', marginBottom: '5px'}}>
+                    <Row style={{marginBottom: '5px'}}>
+                        <Col span={20}>
+                            <Text>百诺恩润唇膏有一支</Text>
+                        </Col>
+                        <Col span={4}>
+                            <Text>¥32.00</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={20}>
+                            <Text>百诺恩润唇膏有四支</Text>
+                        </Col>
+                        <Col span={4}>
+                            <Text>¥32.00</Text>
+                        </Col>
+                    </Row>
+                </View>
+            </View>
+        </View>
+    )
+}
+
+export default QuickBill
