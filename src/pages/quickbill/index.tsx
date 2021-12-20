@@ -14,7 +14,6 @@ const QuickBill = () => {
           method: "GET",
           success: (res) => {
             setData(() => {
-              console.log(res.data.data[3].picture)
               return res.data.data
             })
             Taro.hideLoading()

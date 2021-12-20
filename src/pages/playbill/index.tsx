@@ -46,9 +46,10 @@ const PlayBill = () => {
         border={ false }
       >
       {
-          data?.slice(0,3).map((item, index) => {
+          data?.slice(0,3).map((item: any) => {
+            console.log(item, "item")
             return  (
-              <GridItem forItem="index">
+              <GridItem linkType="navigateTo" url={`/pages/productdetail/index?id=${item.id}`}>
                 <Image style="width: 100%; height: 109px; position: 'relative'" src={item.picture} />
                 <Text style={{position: "absolute", zIndex: 1, overflow: "hidden", left: 15, bottom: 15}}>
                 ¥ {item.sale_price}
@@ -61,7 +62,14 @@ const PlayBill = () => {
          <View>
          {
            data?.length ? <Button plain={ true }
-           hairline={ true }>查看更多
+           hairline={ true }
+           onClick={() => {
+             console.log("点击了更多选项卡")
+             Taro.navigateTo({
+               url: '/pages/productdetail/index'
+             })
+           }}
+           >查看更多
            <Icon name="arrow" />
            </Button> 
            : <></>
