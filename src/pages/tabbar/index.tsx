@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Taro from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { Tabbar, TabbarItem } from "@antmjs/vantui"; 
 
@@ -11,13 +12,25 @@ const TabbarCompont = () => {
                 onChange={(detail) => {
                 // console.log(detail, "detail")
                 setActive(detail.detail as number)
+                console.log(detail, "detail")
+                let url: string
+                if (detail.detail == 1) {
+                    url = '/pages/shoppingcart/index'
+                }
+                console.log(url, "url")
+                Taro.switchTab({
+                    url: url
+                })
                 }}
             >
                 <TabbarItem icon="home-o">
                 首页
                 </TabbarItem>
                 <TabbarItem icon="cart-o">
-                    我的订单
+                    购物车
+                </TabbarItem>
+                <TabbarItem icon="user-o">
+                    我的
                 </TabbarItem>
             </Tabbar>
         </View>
