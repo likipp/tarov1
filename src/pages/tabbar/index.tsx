@@ -14,9 +14,16 @@ const TabbarCompont = () => {
                 setActive(detail.detail as number)
                 console.log(detail, "detail")
                 let url: string
+                if (detail.detail == 0) {
+                    url = '/pages/index/index'
+                }
                 if (detail.detail == 1) {
                     url = '/pages/shoppingcart/index'
                 }
+                if (detail.detail == 2) {
+                    url = '/pages/my/index'
+                }
+
                 console.log(url, "url")
                 Taro.switchTab({
                     url: url

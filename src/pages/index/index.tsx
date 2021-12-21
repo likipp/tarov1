@@ -1,5 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView, View } from "@tarojs/components";
+import Taro from "@tarojs/taro";
 import { useEnv, useNavigationBar, useModal, useToast } from "taro-hooks";
 import {useDidShow} from '@tarojs/taro'
 import logo from "./hook.png";
@@ -21,9 +22,11 @@ const Index = () => {
     confirmText: "支持一下",
     mask: true,
   });
+
   const [showToast] = useToast({ mask: true });
+  const [height, setHeight] = useState(0)
   const scrollStyle = {
-    height: '1100px'
+    height: `${height}px`
   }
   const scrollTop = 0
   const Threshold = 20
@@ -38,6 +41,16 @@ const Index = () => {
     
   })
 
+  useEffect(() => {
+    Taro.getSystemInfo({
+      success: res => {
+        setHeight(() => {
+          return res.screenHeight
+        })
+      }
+    })
+  }, [])
+
   return (
     <ScrollView
       scrollY
@@ -50,10 +63,10 @@ const Index = () => {
       upperThreshold={Threshold}
     >
       <View className="wrapper">
-        <Introduct></Introduct>
+        <Introduct />
         <PlayBill />
         <QuickBill />
-        <TabbarCompont />
+        {/* <TabbarCompont /> */}
       </View>
     </ScrollView>
   );
