@@ -9,7 +9,6 @@ const ProductDetail = (props) => {
             url: `http://localhost:8080/api/v1/base/product/${id}`,
             method: "GET",
             success: (res) => {
-                console.log(res.data, "res")
             //   setData(() => {
             //     // console.log(res.data.data.slice(0,3))
             //     return res.data.data
