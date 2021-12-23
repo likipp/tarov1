@@ -5,7 +5,7 @@ export default {
   "pages/mybuy/index", 
   "pages/productdetail/index", 
   "pages/address/index",
-  // "pages/address/components/aaddress",
+  "pages/address/components/aaddress",
 ],
   tabBar: {
     selectedColor: '#1296db',
