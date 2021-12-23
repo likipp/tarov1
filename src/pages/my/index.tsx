@@ -22,7 +22,7 @@ const My = () => {
                             height="5rem"
                             src="/pages/static/images/userL.png"
                         />
-                        <Text style={{marginLeft: '10px'}}>请登录</Text>
+                        <Text style={{marginLeft: '10px'}}>请先登录</Text>
                 </View>
             }
             <Cell
@@ -31,7 +31,7 @@ const My = () => {
                 title="购买"
                 linkType="navigateTo"
                 value={"订单11"}
-                url="/pages/dashboard/index"
+                url="/pages/mybuy/index"
             />
             <Grid columnNum={3} border={false} style={{borderBottom: '1px solid #f8f8f9'}}>
                 <GridItem
@@ -52,7 +52,7 @@ const My = () => {
                 icon="location"
                 title="地址管理"
                 linkType="navigateTo"
-                url="/pages/dashboard/index"
+                url="/pages/address/index"
             />
         </View>
     )

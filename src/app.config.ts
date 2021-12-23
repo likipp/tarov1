@@ -1,5 +1,12 @@
 export default {
-  pages: ["pages/index/index", "pages/my/index", "pages/shoppingcart/index"],
+  pages: ["pages/index/index", 
+  "pages/my/index", 
+  "pages/shoppingcart/index", 
+  "pages/mybuy/index", 
+  "pages/productdetail/index", 
+  "pages/address/index",
+  "pages/address/components/aaddress",S
+],
   tabBar: {
     selectedColor: '#1296db',
     list: [

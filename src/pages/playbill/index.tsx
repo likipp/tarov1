@@ -54,26 +54,24 @@ const PlayBill = () => {
                 <Text style={{position: "absolute", zIndex: 1, overflow: "hidden", left: 15, bottom: 15}}>
                 ¥ {item.sale_price}
                   </Text>
-                {/* <Field value={item.p_name} placeholder={"请输入内容"} /> */}
               </GridItem>
             )
         })}
       </Grid>
-         <View>
-         {
-           data?.length ? <Button plain={ true }
-           hairline={ true }
-           onClick={() => {
-             console.log("点击了更多选项卡")
-             Taro.navigateTo({
-               url: '/pages/productdetail/index'
-             })
-           }}
-           >查看更多
-           <Icon name="arrow" />
-           </Button> 
-           : <></>
-         }
+         <View style={{display: "flex", alignItems: "center"}}>
+            {
+              data?.length ? <Button plain={ true }
+              style={"border: none"}
+              onClick={() => {
+                Taro.navigateTo({
+                  url: '/pages/productdetail/index'
+                })
+              }}
+              >查看更多
+                  <Icon name="arrow" />
+                </Button> 
+              : <></>
+            }
          </View>
           </View>
       )
