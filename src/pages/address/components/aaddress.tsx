@@ -45,8 +45,10 @@ const AAddress = () => {
                     <Input placeholder="请输入联系电话" />
                 </FormItem>
                 <FormItem
-                label= "所在区域"
-                name = "area"
+                    label= "所在区域"
+                    name = "area"
+                    trigger="onConfirm"
+                    renderRight={<Icon name="arrow" />}
                     >
                         <AreaList />
                 </FormItem>
