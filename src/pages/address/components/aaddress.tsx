@@ -59,7 +59,7 @@ const AAddress = () => {
                 </FormItem>
                 <FormItem name="address" label="详细地址" layout="vertical" required={true} trigger="onInput"
                     validateTrigger="onBlur">
-                    <Field type="textarea" placeholder="填写详细地址" autosize={true}/>
+                    <Field type="textarea" placeholder="填写详细地址" autosize={true} />
                 </FormItem>
                 <View style={{height: '100px', width: '100%', display: 'flex', alignItems: 'center', position: 'absolute', bottom: 10}}>
                     <Button

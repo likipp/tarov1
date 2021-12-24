@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text } from "@tarojs/components";
 import { Cell, Grid, GridItem, Image } from "@antmjs/vantui";
+import userL from '../static/images/userL.png'
 
 const My = () => {
     const [login, setLogin] = useState(false)
@@ -20,7 +21,7 @@ const My = () => {
                             round={ true }
                             width="5rem"
                             height="5rem"
-                            src="/pages/static/images/userL.png"
+                            src={userL}
                         />
                         <Text style={{marginLeft: '10px'}}>请先登录</Text>
                 </View>
