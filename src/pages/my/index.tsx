@@ -3,6 +3,8 @@ import { View, Text } from "@tarojs/components";
 import { Cell, Grid, GridItem, Image } from "@antmjs/vantui";
 import userL from '../static/images/userL.png'
 
+import './index.less'
+
 const My = () => {
     const [login, setLogin] = useState(false)
     return (

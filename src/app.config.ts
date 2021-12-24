@@ -32,9 +32,9 @@ export default {
   },
   window: {
     backgroundTextStyle: "light",
-    backgroundColor: '#f8f8f9',
+    backgroundColor: '#ff4d4f',
     navigationBarBackgroundColor: "#fff",
-    navigationBarTitleText: "WeChat",
+    navigationBarTitleText: "日常小店",
     navigationBarTextStyle: "black",
   },
 };

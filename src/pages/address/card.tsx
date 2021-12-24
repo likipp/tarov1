@@ -1,26 +1,26 @@
 import React, {useEffect, useMemo, useState} from 'react'
-import Taro, { useDidShow } from '@tarojs/taro'
+import Taro, { useDidShow, useReady } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { RadioGroup, Radio, Divider, Button, Checkbox, Icon, Image  } from "@antmjs/vantui";
-import checked from '../static/images/checeked.png'
+import checked from '../static/images/checked.png'
 import ucheck from '../static/images/ucheck.png'
 
 const Card = (props) => {
-    const {data} = props
+    const {data, handleChange} = props
     const [value, setValue] = useState(false)
-    const [list, setList] = useState(data)
+    // const [list, setList] = useState(data)
 
     useEffect(() => {
         console.log("页面加载")
         return () => {
             console.log("页面卸载")
         }
-    }, [list])
+    }, [data])
     
     return (
-        <View style={{marginTop: '20px'}}>
+        <View style={{paddingTop: '20px'}}>
             {
-                list.map((item, index) => {
+                data.map((item, index) => {
                    return  <View style={{marginBottom: '20px', backgroundColor: 'white'}}>
                                 <View style={{padding: '15px 5px 0'}}>
                                     <View style={{float: 'left'}}>
@@ -40,7 +40,7 @@ const Card = (props) => {
                                         )}
                                         onChange={() => {
                                             if (!item.isDefault) {
-                                                let temp = list
+                                                let temp = data
                                                 temp.map((t, i) => {
                                                     if (i == index) {
                                                         t.isDefault = !t.isDefault
@@ -48,9 +48,8 @@ const Card = (props) => {
                                                         t.isDefault = false
                                                     }
                                                 })
-                                                setList(() => {
-                                                    return temp
-                                                })
+                                                // console.log(temp, "temp")
+                                                handleChange(temp)
                                             }
                                         }}
                                     >

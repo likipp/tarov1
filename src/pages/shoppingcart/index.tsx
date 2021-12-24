@@ -1,6 +1,9 @@
 import React from "react";
 import { View } from "@tarojs/components";
-import { Image, Button, Empty } from "@antmjs/vantui"; 
+import { Image, Button } from "@antmjs/vantui";
+import shoppingS from '../static/images/shoppingS.png'
+
+import './index.less'
 
 const ShoppingCart = () => {
     return (
@@ -16,10 +19,10 @@ const ShoppingCart = () => {
         }}>
             <View>
                 <Image
-                    round={ true }
-                    width="10rem"
-                    height="10rem"
-                    src="/pages/static/images/shoppingS.png"
+                    // round={ true }
+                    width={300}
+                    height={300}
+                    src={shoppingS}
                 />
                 {/* <Empty
                     class="customImage"
