@@ -7,8 +7,6 @@ import './index.less'
 
 const Introduct = () => {
     const [data, setData] = useState([])
-    // const accountInfo = Taro.getAccountInfoSync()
-    // console.log(accountInfo)
     useEffect(() => {
         Taro.getUserInfo({
             lang: 'zh_CN',
@@ -21,6 +19,13 @@ const Introduct = () => {
                 console.log("请求失败", err)
             }
         })
+
+        Taro.getUserProfile({
+            desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+            success: (res) => {
+              console.log(res, "res")
+            }
+          })
     }, [])
     return (
         <View style={{position: 'relative', marginBottom: '160px'}}>

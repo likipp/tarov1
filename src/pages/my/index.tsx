@@ -9,25 +9,28 @@ const My = () => {
     const [login, setLogin] = useState(false)
     return (
         <View>
-            {
-                login ? <View>已登录</View>
-                : <View style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    marginBottom: '10px'
-                }}>
-                        <Image
-                            round={ true }
-                            width="5rem"
-                            height="5rem"
-                            src={userL}
-                        />
-                        <Text style={{marginLeft: '10px'}}>请先登录</Text>
-                </View>
-            }
+            <View style={{backgroundColor: 'white'}}>
+                {
+                    login ? <View>已登录</View>
+                    : <View style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        padding: '10px',
+                        marginBottom: '10px'
+                    }}>
+                            <Image
+                                round={ true }
+                                width="5rem"
+                                height="5rem"
+                                src={userL}
+                            />
+                            <Text style={{marginLeft: '10px'}}>请先登录</Text>
+                    </View>
+                }
+            </View>
             <Cell
                 isLink={ true }
                 icon="balance-list"
