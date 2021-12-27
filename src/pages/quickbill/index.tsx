@@ -3,7 +3,9 @@ import Taro from "@tarojs/taro";
 import {View, Text} from "@tarojs/components"
 import * as dayjs from 'dayjs'
 
-import { Row, Col, Tag, Image } from "@antmjs/vantui"; 
+import { Row, Col, Tag, Image, Button, Divider } from "@antmjs/vantui"; 
+
+import ellipsis from '../static/images/ellipsis.png'
 
 const QuickBill = () => {
     const [data, setData] = useState()
@@ -26,7 +28,7 @@ const QuickBill = () => {
 
 
     return (
-        <View style={{marginTop: '15px', backgroundColor: "white"}}>
+        <View style={{marginTop: '15px', backgroundColor: "white", width: "90%", margin: '20px', float: "right"}}>
             <Row>
                 <Col span={24}>
                     <Text style={{fontSize: '30px'}}>{dayjs().format('MM月DD日')}速购单</Text>
@@ -58,6 +60,33 @@ const QuickBill = () => {
                         </Col>
                     </Row>
                 </View>
+            </View>
+            <Divider />
+            <View style={{display: "flex", alignContent: "center", justifyContent: "space-between", position: "relative"}}>
+                <View style={{display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "18px", marginBottom: "18px"}}>
+                    <Image
+                        style={{zIndex: '80'}}
+                        round={ true }
+                        width={50}
+                        height={50}
+                        src="https://img.yzcdn.cn/vant/cat.jpeg"
+                    />
+                    <Image
+                        style={{zIndex: '100', position: "absolute", marginRight: '30px'}}
+                        round={ true }
+                        width={50}
+                        height={50}
+                        src={ellipsis}
+                    />
+                    <Text style={{marginLeft: "25px"}}>已售1</Text>
+                </View>
+                <Button style="float: right; margin: 0 18px 18px 0" size="small" color="#1296db"
+                    onClick={() => {
+                        Taro.navigateTo({
+                            url: "/pages/playbill/component/playdetail"
+                        })
+                    }}
+                >立即抢购</Button>
             </View>
         </View>
     )

@@ -6,6 +6,7 @@ export default {
   "pages/productdetail/index", 
   "pages/address/index",
   "pages/address/components/aaddress",
+  "pages/playbill/component/playdetail"
 ],
   tabBar: {
     selectedColor: '#1296db',

@@ -24,7 +24,7 @@ const PlayBill = () => {
       }, [])
 
       return (
-          <View style={{backgroundColor: "white", marginTop: '15px'}}>
+          <View style={{backgroundColor: "white", marginTop: '15px', width: "90%", margin: '20px 0 0 20px', float: "right"}}>
               <Row>
         <Col span="12">
           <Text style={{fontSize: '30px'}}>
