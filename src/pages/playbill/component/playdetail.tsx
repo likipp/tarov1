@@ -4,13 +4,14 @@ import { View, Text } from "@tarojs/components";
 import { Icon, Button, Image, Divider, Stepper } from "@antmjs/vantui";
 import * as dayjs from 'dayjs'
 
-import QuickBillReducer from "/src/reducer/index"
+import QuickBillReducer from '/src/reducer/index'
 
 import ellipsis from "/src/pages/static/images/ellipsis.png"
 import wechat from "/src/pages/static/images/wechat.png"
 
 const PlayDetail = () => {
     const [data, setData] = useState()
+    const [disabled, setDisabled] = useState(true)
 
     // const dataList = [
     //     {name: "百诺恩润唇膏一支", price: 3200, sell: 1, qty: 0},
@@ -20,12 +21,33 @@ const PlayDetail = () => {
 
     const [product, dispatch] = useReducer(QuickBillReducer, [
         {name: "百诺恩润唇膏一支", price: 3200, sell: 1, qty: 0},
-        {name: "百诺恩润唇膏四支", price: 12800, sell: 0, qty: 1},
+        {name: "百诺恩润唇膏四支", price: 12800, sell: 0, qty: 0},
         {name: "运费", price: 10, sell: 1, qty: 0}
     ])
 
+    const getTotal = (data) => {
+        let total = 0
+        data.map((item) => {
+            if (item.qty > 0) {
+                let t = item.price * item.qty
+                total = total + t
+            }
+            return total
+        })
+    }
+
+    const getLength = (data) => {
+        let length = 0
+        data.map((item) => {
+            if (item.qty > 0) {
+                length ++
+            }
+            return length
+        })
+    }
+
     useEffect(() => {
-        console.log(product, "product")
+        console.log("223434")
         Taro.request({
           url: "http://localhost:8080/api/v1/base/product/",
           method: "GET",
@@ -103,6 +125,7 @@ const PlayDetail = () => {
                 : <></>
             }
             {
+                
                 product.map((item: any, index: number) => {
                     return (
                         <View style={{backgroundColor: "#e8eaec", borderRadius: "15px", display: "flex", alignItems: "center", flexWrap: "wrap", padding: "15px", marginBottom: "15px"}}>
@@ -110,14 +133,15 @@ const PlayDetail = () => {
                             <View style={{width: "50%", display:"flex", justifyContent: "flex-end", marginBottom: "15px"}}>¥{item.price}</View>
                             <Text style={{width: "50%", color: "#808695"}}>已售 {item.sell}</Text>
                             {
-                                item.qty == 0 ? <Icon name="add-o" style="width: 50%; display: flex; justifyContent: flex-end" color="#1296db" size="25px" />
-                                : <Stepper value={ item.qty } theme={"round"} buttonSize="20px" style={{width: "50%", display: "flex", justifyContent: "flex-end"}}
+                                item.qty == 0 ? <Icon name="add-o" style="width: 50%; display: flex; justifyContent: flex-end" color="#1296db" size="25px" onClick={() => {
+                                    dispatch({type: "increament", index: index})
+                                }} />
+                                : <Stepper value={ item.qty } theme={"round"} buttonSize="20px" style={{width: "50%", display: "flex", justifyContent: "flex-end"}} min={0}
                                     onPlus={() => {
-                                        console.log("增加了", product)
                                         dispatch({type: "increament", index: index})
                                     }}
                                     onMinus={() => {
-                                        console.log("减少了")
+                                        dispatch({type: "decrement", index: index})
                                     }}
                                 />
                             }
@@ -128,10 +152,10 @@ const PlayDetail = () => {
             
             <View style={{display: "flex", alignItems: "center", justifyContent:"space-between", position: "absolute", bottom: "20px", width: "100%"}}>
                <View>
-                <Text>{product.length}件商品，合价</Text>
-                <Text style={{fontSize: "25px", marginLeft: "5px", color: "#1296db"}}>¥32.00</Text>
+                <Text>{getLength(product)}件商品，合价</Text>
+                <Text style={{fontSize: "25px", marginLeft: "5px", color: "#1296db"}}>¥{getTotal(product)}</Text>
                </View>
-               <Button color="#1296db" style="margin: 0 30px 0 0; width: 150px">选好了</Button>
+               <Button color="#1296db" style="margin: 0 30px 0 0; width: 150px" disabled={disabled}>选好了</Button>
            </View>
         </View>
     )
