@@ -1,10 +1,12 @@
-import React, {useState, useEffect, useReducer} from "react";
+import React, {useState, useEffect, useReducer, useLayoutEffect} from "react";
 import Taro from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import { Icon, Button, Image, Divider, Stepper } from "@antmjs/vantui";
 import * as dayjs from 'dayjs'
 
 import QuickBillReducer from '/src/reducer/index'
+import DataSourceType from '/pages/playbill/data'
+// import Stepper from '/src/pages/components/stepper'
 
 import ellipsis from "/src/pages/static/images/ellipsis.png"
 import wechat from "/src/pages/static/images/wechat.png"
@@ -12,42 +14,48 @@ import wechat from "/src/pages/static/images/wechat.png"
 const PlayDetail = () => {
     const [data, setData] = useState()
     const [disabled, setDisabled] = useState(true)
+    const [total, setTotal] = useState(0)
+    const [length, setLength] = useState(0)
 
     // const dataList = [
     //     {name: "百诺恩润唇膏一支", price: 3200, sell: 1, qty: 0},
     //     {name: "百诺恩润唇膏四支", price: 12800, sell: 0, qty: 1},
     //     {name: "运费", price: 10, sell: 1, qty: 0}
     // ]
-
     const [product, dispatch] = useReducer(QuickBillReducer, [
         {name: "百诺恩润唇膏一支", price: 3200, sell: 1, qty: 0},
         {name: "百诺恩润唇膏四支", price: 12800, sell: 0, qty: 0},
         {name: "运费", price: 10, sell: 1, qty: 0}
     ])
 
-    const getTotal = (data) => {
-        let total = 0
-        data.map((item) => {
-            if (item.qty > 0) {
-                let t = item.price * item.qty
-                total = total + t
-            }
-            return total
-        })
+    const changButtomDisabled = () => {
+        setDisabled(true)
     }
 
-    const getLength = (data) => {
+    const changButtomEnabled = () => {
+        setDisabled(false)
+    }
+
+    useLayoutEffect(() => {
         let length = 0
-        data.map((item) => {
-            if (item.qty > 0) {
+        let total = 0
+        for (let i = 0; i < product.length; i++) {
+            if (product[i].qty > 0) {
+                let t = product[i].price * product[i].qty
+                total = total + t
                 length ++
             }
-            return length
-        })
-    }
+        }
+        setLength(length)
+        setTotal(total)
+        if (length > 0) {
+            changButtomEnabled()
+        } else {
+            changButtomDisabled()
+        }
+    }, [product])
 
     useEffect(() => {
-        console.log("223434")
         Taro.request({
           url: "http://localhost:8080/api/v1/base/product/",
           method: "GET",
@@ -104,8 +112,8 @@ const PlayDetail = () => {
                         <Text style={{marginLeft: "25px"}}>已售1</Text>
                     </View>
                     <View>
-                        <Button 
-                            round={ true } 
+                        <Button
+                            round={ true }
                             size="small"
                             icon={wechat}
                             color="#07c160"
@@ -125,18 +133,19 @@ const PlayDetail = () => {
                 : <></>
             }
             {
-                
+
                 product.map((item: any, index: number) => {
                     return (
-                        <View style={{backgroundColor: "#e8eaec", borderRadius: "15px", display: "flex", alignItems: "center", flexWrap: "wrap", padding: "15px", marginBottom: "15px"}}>
+                        <View style={{backgroundColor: "#e8eaec", borderRadius: "15px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", padding: "15px", marginBottom: "15px"}}>
                             <View style={{width: "50%", marginBottom: "15px"}}>{item.name}</View>
                             <View style={{width: "50%", display:"flex", justifyContent: "flex-end", marginBottom: "15px"}}>¥{item.price}</View>
                             <Text style={{width: "50%", color: "#808695"}}>已售 {item.sell}</Text>
+                            <View style={{width: "50%", display: "flex", justifyContent: "flex-end"}}>
                             {
-                                item.qty == 0 ? <Icon name="add-o" style="width: 50%; display: flex; justifyContent: flex-end" color="#1296db" size="25px" onClick={() => {
+                                item.qty == 0 ? <Icon name="add" color="#ee0a24" size="20px" style="width: 20px; height: 20px" onClick={() => {
                                     dispatch({type: "increament", index: index})
                                 }} />
-                                : <Stepper value={ item.qty } theme={"round"} buttonSize="20px" style={{width: "50%", display: "flex", justifyContent: "flex-end"}} min={0}
+                                : <Stepper value={ item.qty } theme={"round"} buttonSize="20px" min={0}
                                     onPlus={() => {
                                         dispatch({type: "increament", index: index})
                                     }}
@@ -145,15 +154,17 @@ const PlayDetail = () => {
                                     }}
                                 />
                             }
+                            </View>
+                            {/* <Stepper /> */}
                         </View>
                     )
                 })
             }
-            
+
             <View style={{display: "flex", alignItems: "center", justifyContent:"space-between", position: "absolute", bottom: "20px", width: "100%"}}>
                <View>
-                <Text>{getLength(product)}件商品，合价</Text>
-                <Text style={{fontSize: "25px", marginLeft: "5px", color: "#1296db"}}>¥{getTotal(product)}</Text>
+                <Text>{length}件商品，合价</Text>
+                <Text style={{fontSize: "25px", marginLeft: "5px", color: "#1296db"}}>¥{total}</Text>
                </View>
                <Button color="#1296db" style="margin: 0 30px 0 0; width: 150px" disabled={disabled}>选好了</Button>
            </View>
