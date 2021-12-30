@@ -28,7 +28,7 @@ const QuickBill = () => {
 
 
     return (
-        <View style={{marginTop: '15px', backgroundColor: "white", width: "90%", margin: '20px', float: "right"}}>
+        <View className="page">
             <Row>
                 <Col span={24}>
                     <Text style={{fontSize: '30px'}}>{dayjs().format('MM月DD日')}速购单</Text>
@@ -39,7 +39,7 @@ const QuickBill = () => {
             </Row>
             <View>
                 {
-                    data?.length ? <Image style="width: 8rem; height: 8rem; position: 'relative'" src={data[3].picture} />
+                    data?.length ? <Image style="width: 110px; height: 110px; position: 'relative'" src={data[3].picture} />
                     : <></>
                 }
                 <View style={{marginLeft: '30px', marginBottom: '5px'}}>

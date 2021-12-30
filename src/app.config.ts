@@ -7,7 +7,7 @@ export default {
   "pages/address/index",
   "pages/address/components/aaddress",
   "pages/playbill/component/playdetail",
-  "pages/playbill/component/payprocess",
+  // "pages/playbill/component/payprocess",
   "pages/myaddress/index"
 ],
   tabBar: {
