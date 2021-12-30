@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import {View} from '@tarojs/components'
 import Card from './card'
 
 const Address = () => {
+  // const [values, onHandleSelect] = props
   const [data, setData] = useState([{
     id: '1',
     name: '张三',
@@ -17,20 +18,24 @@ const Address = () => {
     address: '浙江省杭州市拱墅区莫干山路 50 号',
   }])
 
-const handleChange = (value: any) => {
-  console.log(value, 'handleChange')
-  setData(() => {
-    return value
-  })
-}
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     console.log("加载", data)
   })
 
+  const handleChange = (value: any) => {
+    console.log(value, "value")
+    setData(() => {
+      return value
+    })
+  }
+  
+  const handleSelect = (value: any) => {
+    return value
+  }
+  
     return (
         <View style={{backgroundColor: '#f8f8f9', height: '753px', display: 'block'}}>
-            <Card data={data} handleChange={handleChange} />
+            <Card data={data} handleChange={handleChange} handelSelect={handleSelect}/>
         </View>
     )
 }

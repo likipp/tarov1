@@ -142,7 +142,7 @@ const PlayDetail = () => {
                             <Text style={{width: "50%", color: "#808695"}}>已售 {item.sell}</Text>
                             <View style={{width: "50%", display: "flex", justifyContent: "flex-end"}}>
                             {
-                                item.qty == 0 ? <Icon name="add" color="#ee0a24" size="20px" style="width: 20px; height: 20px" onClick={() => {
+                                item.qty == 0 ? <Icon name="add" color="#ee0a24" size="22px" style="width: 20px; height: 20px; margin: 1px; padding: 4px" onClick={() => {
                                     dispatch({type: "increament", index: index})
                                 }} />
                                 : <Stepper value={ item.qty } theme={"round"} buttonSize="20px" min={0}
@@ -154,8 +154,8 @@ const PlayDetail = () => {
                                     }}
                                 />
                             }
+                             {/* <Stepper /> */}
                             </View>
-                            {/* <Stepper /> */}
                         </View>
                     )
                 })
@@ -166,7 +166,7 @@ const PlayDetail = () => {
                 <Text>{length}件商品，合价</Text>
                 <Text style={{fontSize: "25px", marginLeft: "5px", color: "#1296db"}}>¥{total}</Text>
                </View>
-               <Button color="#1296db" style="margin: 0 30px 0 0; width: 150px" disabled={disabled}>选好了</Button>
+               <Button color="#1296db" style="margin: 0 30px 0 0; width: 150px" disabled={disabled} onClick={() => {Taro.navigateTo({url: "/pages/playbill/component/payprocess"})}}>选好了</Button>
            </View>
         </View>
     )

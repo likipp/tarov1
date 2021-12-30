@@ -1,21 +1,18 @@
-import React, {useEffect, useMemo, useState} from 'react'
-import Taro, { useDidShow, useReady } from '@tarojs/taro'
+import React, {useLayoutEffect, useState} from 'react'
+import Taro from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { RadioGroup, Radio, Divider, Button, Checkbox, Icon, Image  } from "@antmjs/vantui";
+import { Divider, Button, Checkbox, Image  } from "@antmjs/vantui";
 import checked from '../static/images/checked.png'
 import ucheck from '../static/images/ucheck.png'
 
 const Card = (props) => {
-    const {data, handleChange} = props
+    const {data, handleChange, handleSelect} = props
     const [value, setValue] = useState(false)
     // const [list, setList] = useState(data)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         console.log("页面加载")
-        return () => {
-            console.log("页面卸载")
-        }
-    }, [data])
+    })
     
     return (
         <View style={{paddingTop: '20px'}}>
@@ -48,8 +45,9 @@ const Card = (props) => {
                                                         t.isDefault = false
                                                     }
                                                 })
-                                                // console.log(temp, "temp")
+                                                console.log(item, "item")
                                                 handleChange(temp)
+                                                handleSelect(temp[index])
                                             }
                                         }}
                                     >
