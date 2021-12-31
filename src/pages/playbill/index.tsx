@@ -65,7 +65,7 @@ const PlayBill = () => {
                   data?.length ? <View
                   onClick={() => {
                     Taro.navigateTo({
-                      url: '/pages/productdetail/index'
+                      url: '/pages/product/index'
                     })
                   }}
                   >查看更多

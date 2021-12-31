@@ -142,19 +142,20 @@ const PlayDetail = () => {
                             <Text style={{width: "50%", color: "#808695"}}>已售 {item.sell}</Text>
                             <View style={{width: "50%", display: "flex", justifyContent: "flex-end"}}>
                             {
-                                item.qty == 0 ? <Icon name="add" color="#ee0a24" size="22px" style="width: 20px; height: 20px; margin: 1px; padding: 4px" onClick={() => {
+                                item.qty == 0 ? <Icon name="add" color="#ee0a24" size="25px" style="width: 26px; height: 26px; margin: 1px" onClick={() => {
                                     dispatch({type: "increament", index: index})
                                 }} />
-                                : <Stepper value={ item.qty } theme={"round"} buttonSize="20px" min={0}
-                                    onPlus={() => {
-                                        dispatch({type: "increament", index: index})
-                                    }}
-                                    onMinus={() => {
-                                        dispatch({type: "decrement", index: index})
-                                    }}
-                                />
+                                :  <Stepper value={ item.qty } theme={"round"} buttonSize="22px" min={0}
+                                        onPlus={() => {
+                                            dispatch({type: "increament", index: index})
+                                        }}
+                                        onMinus={() => {
+                                            dispatch({type: "decrement", index: index})
+                                        }}
+                                        style={{height: "28px"}}
+                                    />
                             }
-                             {/* <Stepper /> */}
+                            
                             </View>
                         </View>
                     )

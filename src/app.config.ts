@@ -1,13 +1,14 @@
 export default {
   pages: ["pages/index/index", 
   "pages/my/index", 
+  "pages/product/index", 
   "pages/shoppingcart/index", 
   "pages/mybuy/index", 
   "pages/productdetail/index", 
   "pages/address/index",
   "pages/address/components/aaddress",
   "pages/playbill/component/playdetail",
-  // "pages/playbill/component/payprocess",
+  "pages/playbill/component/payprocess",
   "pages/myaddress/index"
 ],
   tabBar: {

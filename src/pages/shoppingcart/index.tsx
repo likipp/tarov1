@@ -1,17 +1,25 @@
-import React from "react";
-import { View } from "@tarojs/components";
+import React, { useEffect, useState } from "react";
+import Taro from "@tarojs/taro"
+import { View, Text } from "@tarojs/components";
 import { Image, Button } from "@antmjs/vantui";
-import shoppingS from '../static/images/shoppingS.png'
+import shoppingE from '../static/images/shoppingE.png'
 
 import './index.less'
 
 const ShoppingCart = () => {
+    const [height, setHeight] = useState(0)
+
+    useEffect(() => {
+        Taro.getSystemInfo({
+            success: (res) => {
+                setHeight(res.windowHeight)
+            }
+        })
+    })
+
     return (
         <View style={{
-            overflow: 'hidden',
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
+            height: height,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -19,19 +27,14 @@ const ShoppingCart = () => {
         }}>
             <View>
                 <Image
-                    // round={ true }
                     width={300}
                     height={300}
-                    src={shoppingS}
+                    src={shoppingE}
                 />
-                {/* <Empty
-                    class="customImage"
-                    image="/pages/static/images/shoppingS.png"
-                    description="购物车为空哦"
-                /> */}
             </View>
+            <Text style={{color: "#bfbfbf", margin: "10px 0"}}>您的购物车为空哦</Text>
             <View>
-                <Button type="default">逛一逛</Button>
+                <Button color="#1296db" round={ true }>逛一逛</Button>
             </View>
         </View>
     )
