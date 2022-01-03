@@ -2,6 +2,7 @@ export default {
   pages: ["pages/index/index", 
   "pages/my/index", 
   "pages/product/index", 
+  // "pages/product/component/productitem", 
   "pages/shoppingcart/index", 
   "pages/mybuy/index", 
   "pages/productdetail/index", 

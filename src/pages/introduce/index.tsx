@@ -59,7 +59,7 @@ const Introduct = () => {
                     <View style={{fontSize: '25px', marginBottom: '8px', marginTop: '8px'}}>
                         <Text>日常小店</Text>
                     </View>
-                    <View style={{backgroundColor: '#d9f7be', color: "#52c41a", borderRadius:'25px', fontSize: '18px', border: '1px solid #19be6b', width:'44%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{backgroundColor: '#d9f7be', color: "#52c41a", borderRadius:'25px', fontSize: '18px', border: '1px solid #19be6b', display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: "nowrap"}}>
                         <View style={{marginRight: '5px'}}>
                             <Icon name="manager" />
                         </View>
