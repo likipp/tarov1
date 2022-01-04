@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import Taro from "@tarojs/taro";
 import {View, Text} from "@tarojs/components"
 import { Image, Icon, Divider } from "@antmjs/vantui"; 
 
 import './index.less'
+import Share from "./component/share";
 
 const Introduct = () => {
     const [data, setData] = useState([])
+    const [showShare, setShowShare] = useState(true)
     useEffect(() => {
         Taro.getUserInfo({
             lang: 'zh_CN',
@@ -27,6 +29,10 @@ const Introduct = () => {
             }
           })
     }, [])
+
+    useLayoutEffect(() => {
+    }, [showShare])
+
     return (
         <View style={{position: 'relative', marginBottom: '160px'}}>
             <View style={{display: "block", zIndex:80}} >
@@ -84,11 +90,16 @@ const Introduct = () => {
                         <View style={{margin: '0 55px', color: '#e8eaec'}}>|</View>
                         <View>
                     <Icon name="share" color="#2d8cf0"></Icon>
-                    <Text style={{marginLeft: '5px'}}>分享主页</Text>
+                    <Text style={{marginLeft: '5px'}} onClick={() => {
+                        setShowShare(true)
+                    }}>分享主页</Text>
                 </View>
                     </View>
                 </View>
             </View>
+            {
+                showShare ? <Share showShare={showShare} /> : <></>
+            }
         </View>
     )
 }

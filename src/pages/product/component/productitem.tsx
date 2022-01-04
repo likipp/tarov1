@@ -1,20 +1,61 @@
 import React from "react"
-import {View, Text} from "@tarojs/components"
+import {View, ScrollView, Text} from "@tarojs/components"
+import { Image, Icon } from "@antmjs/vantui";
 
-const ProductItem = () => {
-    // console.log(props, "props")
-    // const {data} = props
-    // return <View >
-    //     <Text>
-    //         {data.sale_price}
-    //     </Text>
-    //     <Text>
-    //         {data.p_name}
-    //     </Text>
-    // </View>
+const ProductItem = (props) => {
+    const {list, height} = props
+    const scrollStyle = {
+        height: `${height}px`
+      }
+      const scrollTop = 0
+      const Threshold = 60
     return (
         <View>
-            111
+            <ScrollView
+                scrollY
+                scrollWithAnimation
+                enableBackToTop
+                enableFlex
+                scrollTop={scrollTop}
+                style={scrollStyle}
+                lowerThreshold={Threshold}
+                upperThreshold={Threshold}
+              >
+                <View style={{height: `${height}px`}}>
+                {
+                  list?.length > 0 ? list.map((item) => {
+                    return (
+                      <View style={{border: "1px solid #e8eaec", borderRadius: "10px", marginBottom: "20px", marginRight: "15px", backgroundColor: "white", overflow:"hidden"}} >
+                          <Image
+                            width={500}
+                            height={500}
+                            src={item.picture}
+                            fit="none"
+                            radius={25}
+                          />
+                          <View style={{height: "80px", margin: "25px 0 25px 25px", position: "relative", overflow: "hiden"}}>
+                              <Text style="color:red; bottom: 53px; position:absolute">
+                                  ¥
+                              </Text>
+                              <Text style="zIndex: 0; font-size: 30px; color: red; margin-left: 10px">
+                                  {item.sale_price}
+                              </Text>
+                              <Text style="display: block">
+                                  {item.p_name}
+                              </Text>
+                              <View>
+                                  <Icon name="add" color="#ee0a24" size="25px" style="width: 26px; height: 26px; margin: 1px; position:absolute; right: 15px" onClick={() => {
+                                        
+                                    }} />
+                              </View>
+                          </View>
+                        </View>
+                    )
+                  })
+                  : <></>
+                }
+                </View>
+              </ScrollView>
         </View>
     )
 }

@@ -39,7 +39,7 @@ const QuickBill = () => {
             </Row>
             <View>
                 {
-                    data?.length ? <Image style="width: 110px; height: 110px; position: 'relative'" src={data[3].picture} />
+                    data?.length ? <Image style="width: 110px; height: 110px; position: 'relative'" src={data[1].picture} />
                     : <></>
                 }
                 <View style={{marginLeft: '30px', marginBottom: '5px'}}>
