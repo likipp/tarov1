@@ -1,40 +1,33 @@
 import React, { useState } from "react"
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import {ShareSheet} from "@antmjs/vantui"
+
+import poster from "/src/pages/static/images/poster.png"
 
 const Share = (props) => {
   const {showShare} = props
-  console.log("显示分享", showShare)
   const [options] = useState([[{
-    name: '微信',
+    name: '发送给朋友',
     icon: 'wechat'
   }, {
-    name: '微博',
-    icon: 'weibo'
-  }, {
-    name: 'QQ',
-    icon: 'qq'
-  }], [{
-    name: '复制链接',
-    icon: 'link'
-  }, {
-    name: '分享海报',
-    icon: 'poster'
-  }, {
-    name: '二维码',
-    icon: 'qrcode'
+    name: '保存主页海报',
+    icon: poster
   }]])
   
   
 
   return (
       <View>
-        <ShareSheet>
-          zIndex={9999}
+        <ShareSheet
           title="分享主页"
           show={showShare}
-          option={options}
-        </ShareSheet>
+          options={options} />
+          onCancel={() => {
+            console.log("cancel")
+          }}
+          onClose={() => {
+            console.log("close")
+          }}
       </View>
   )
 }

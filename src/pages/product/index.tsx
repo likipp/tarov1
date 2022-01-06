@@ -16,6 +16,7 @@ const Product = () => {
     const [list, setList] = useState()
     const [height, setHeight] = useState(0)
     const [disabled, setDisabled] = useState(true)
+    const [length, setLength] = useState(0)
 
     
 
@@ -60,7 +61,7 @@ const Product = () => {
       }, [])
 
     return (
-        <View style={{display: "flex", height: `${height}px`, marginBottom: "15px", flexDirection: "column"}}>
+        <View style={{display: "flex", marginBottom: "15px", flexDirection: "column"}}>
           <View style={{display: "flex"}}>
             <Sidebar activeKey={activeKey} 
               onChange={(event) => {
@@ -76,7 +77,7 @@ const Product = () => {
               }
             </Sidebar>
             <View style={{flex: "2 0 auto", backgroundColor: "#e8eaec"}}>
-              <View style={{height: height, marginLeft: "15px", marginTop: "15px", color: "#515a6e", backgroundColor: "#e8eaec"}}>
+              <View style={{marginLeft: "10px", marginTop: "15px", color: "#515a6e", backgroundColor: "#e8eaec"}}>
                 <View style={{marginBottom: "15px"}}>
                     <Text style={{display: "block"}}>{title}</Text>
                     <Text style={{display: "block"}}>共10个商品</Text>
@@ -87,11 +88,14 @@ const Product = () => {
               </View>
             </View>
           </View>
-          <View style={{width: "100%", backgroundColor: "white", height: "100px", position: "absolute", bottom: "0px", display:"flex", alignItems: "center", justifyContent:"space-between", borderTop: "1px solid #e8eaec"}}>
-              <View>
-                <Text>0件商品，合价</Text>
-                <Text style={{fontSize: "25px", marginLeft: "5px", color: "#1296db"}}>¥0</Text>
-              </View>
+          <View style={{width: "100%", backgroundColor: "#fafafa", height: "100px", display:"flex", alignItems: "center", justifyContent:"space-between", borderTop: "1px solid #e8eaec", zIndex: 999, position: "fixed", bottom:0}}>
+              {
+                length ? <View>
+                  <Text>0件商品，合价</Text>
+                  <Text style={{fontSize: "25px", marginLeft: "5px", color: "#1296db"}}>¥0</Text>
+                </View>
+                : <View style={{color: "#bfbfbf"}}>未选购商品</View>
+              }
               <Button color="#1296db" style="margin: 0 5px 0 0; width: 150px" disabled={disabled} onClick={() => {Taro.navigateTo({url: "/pages/playbill/component/payprocess"})}}>选好了</Button>
           </View>
         </View>

@@ -1,14 +1,19 @@
 import React, {useEffect, useLayoutEffect, useState} from "react";
 import Taro from "@tarojs/taro";
 import {View, Text} from "@tarojs/components"
-import { Image, Icon, Divider } from "@antmjs/vantui"; 
+import { Image, Icon, Divider, Cell, ShareSheet, Button, ActionSheet } from "@antmjs/vantui"; 
 
 import './index.less'
+import cposter from "/src/pages/static/images/poster.png"
+import cwechat from "/src/pages/static/images/cwechat.png"
+
 import Share from "./component/share";
 
 const Introduct = () => {
     const [data, setData] = useState([])
-    const [showShare, setShowShare] = useState(true)
+    const [showShare, setShowShare] = useState(false)
+    // const [show, setShow] = useState(false)
+    
     useEffect(() => {
         Taro.getUserInfo({
             lang: 'zh_CN',
@@ -29,9 +34,6 @@ const Introduct = () => {
             }
           })
     }, [])
-
-    useLayoutEffect(() => {
-    }, [showShare])
 
     return (
         <View style={{position: 'relative', marginBottom: '160px'}}>
@@ -90,15 +92,52 @@ const Introduct = () => {
                         <View style={{margin: '0 55px', color: '#e8eaec'}}>|</View>
                         <View>
                     <Icon name="share" color="#2d8cf0"></Icon>
-                    <Text style={{marginLeft: '5px'}} onClick={() => {
-                        setShowShare(true)
-                    }}>分享主页</Text>
+                    <View style={{marginLeft: '5px', display: "inline"}} onClick={() => {
+                        Taro.hideTabBar({
+                            animation: true,
+                            success: () => {
+                                setShowShare(true)
+                            }
+                        })
+                    }}>分享主页</View>
                 </View>
                     </View>
                 </View>
             </View>
             {
-                showShare ? <Share showShare={showShare} /> : <></>
+                // showShare ? <Share showShare={showShare} /> : <></>
+                showShare ? <ActionSheet show={showShare} title="分享主页" onClose={() => 
+                    Taro.showTabBar({
+                        animation: true,
+                        success: () => {
+                            setShowShare(false)
+                        }
+                    })
+                    
+                } >
+                    <Divider />
+                    <View style={{display: "flex", justifyContent: "space-around"}}>
+                        <View style={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center"}} onClick={() => {
+                            console.log("点击了发送给朋友")
+                        }}>
+                            <Icon name={cwechat} size="100px" />
+                            <Text style="margin: 10px 0">发送给朋友</Text>
+                        </View>
+                        <View style={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center"}} onClick={() => {
+                            // console.log("保存主页海报")
+                            Taro.saveImageToPhotosAlbum({
+                                filePath: "",
+                                success: (res) => {
+                                    console.log(res)
+                                }
+                            })
+                        }}>
+                            <Icon name={cposter} size="100px" />
+                            <Text style="margin: 10px 0">保存主页海报</Text>
+                        </View>
+                    </View>
+                </ActionSheet>
+                : <></>
             }
         </View>
     )

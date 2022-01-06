@@ -3,12 +3,16 @@ import {View, ScrollView, Text} from "@tarojs/components"
 import { Image, Icon } from "@antmjs/vantui";
 
 const ProductItem = (props) => {
-    const {list, height} = props
+    const {list} = props
     const scrollStyle = {
-        height: `${height}px`
+        height: `${list?.length * 435}px`
       }
-      const scrollTop = 0
-      const Threshold = 60
+    const scrollTop = 0
+    const Threshold = 60
+    const onScroll = (e) => {
+      console.log(e, "event")
+    }
+
     return (
         <View>
             <ScrollView
@@ -20,8 +24,9 @@ const ProductItem = (props) => {
                 style={scrollStyle}
                 lowerThreshold={Threshold}
                 upperThreshold={Threshold}
+                onScroll={onScroll}
               >
-                <View style={{height: `${height}px`}}>
+                <View >
                 {
                   list?.length > 0 ? list.map((item) => {
                     return (

@@ -65,14 +65,14 @@ const QuickBill = () => {
             <View style={{display: "flex", alignContent: "center", justifyContent: "space-between", position: "relative"}}>
                 <View style={{display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "18px", marginBottom: "18px"}}>
                     <Image
-                        style={{zIndex: '80'}}
+                        // style={{zIndex: '80'}}
                         round={ true }
                         width={50}
                         height={50}
                         src="https://img.yzcdn.cn/vant/cat.jpeg"
                     />
                     <Image
-                        style={{zIndex: '100', position: "absolute", marginRight: '30px'}}
+                        style={{position: "absolute", marginRight: '30px'}}
                         round={ true }
                         width={50}
                         height={50}
