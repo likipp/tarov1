@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Taro, { useDidHide, useDidShow } from "@tarojs/taro"
-import { View, Text } from "@tarojs/components";
-import { Sidebar, SidebarItem } from "@antmjs/vantui";
+import { View, Text, ScrollView} from "@tarojs/components";
+import { Sidebar, SidebarItem, Image, Icon, Button } from "@antmjs/vantui";
+
+import ProductItem from "./component/productitem"
 
 import "./index.less"
 
@@ -11,9 +13,14 @@ const Product = () => {
     const [data, setData] = useState()
     const [activeKey, setActiveKey] = useState(0)
     const [title, setTitle] = useState("")
+    const [list, setList] = useState()
+    const [height, setHeight] = useState(0)
+    const [disabled, setDisabled] = useState(true)
+    const [length, setLength] = useState(0)
+
+    
 
     useEffect(() => {
-      console.log("页面加载完")
         Taro.request({
           url: "http://localhost:8080/api/v1/base/brand-tree/",
           method: "GET",
@@ -28,46 +35,68 @@ const Product = () => {
             console.log(err, "失败了")
           }
         })
+        Taro.request({
+          url: "http://localhost:8080/api/v1/base/product/",
+          method: "GET",
+          success: (res) => {
+            // setData(() => {
+            //   return res.data.data
+            // })
+            // setTitle(res.data.data[0].title)
+            setList(() => {
+                return res.data.data
+              })
+            Taro.hideLoading()
+          },
+          fail: (err) => {
+            console.log(err, "失败了")
+          }
+        })
+        Taro.getSystemInfo({
+          success: function (res) {
+            // console.log(res.windowHeight)
+            setHeight(res.windowHeight)
+          }
+        })
       }, [])
 
-      // useDidShow(() => {
-      //   console.log("页面加载完之前")
-      //   Taro.request({
-      //     url: "http://localhost:8080/api/v1/base/brand-tree/",
-      //     method: "GET",
-      //     success: (res) => {
-      //       setData(() => {
-      //         return res.data.data
-      //       })
-      //       Taro.hideLoading()
-      //     },
-      //     fail: (err) => {
-      //       console.log(err, "失败了")
-      //     }
-      //   })
-      // })
     return (
-        <View style={{display: "flex", height: "900px"}}>
-          <Sidebar activeKey={activeKey} 
-            onChange={(event) => {
-              setActiveKey(event.detail)
-              // console.log(Object.keys(data), "对应的title")
-              setTitle(data[event.detail].title)
-              // console.log(data[event.detail].title, "数据")
-            }}
-            style={{width: "100px"}}
-          >
-            {
-              data?.map((item) => {
-                return <SidebarItem title={item.title} className={data[activeKey].title === item.title ? "myactive" : "myunactive"}/>
-              })
-            }
-          </Sidebar>
-          <View style={{backgroundColor: "#e8eaec", flex: 2}}>
-            <View style={{height: "100px", marginLeft: "15px", marginTop: "20px", color: "#515a6e"}}>
-              <Text style={{display: "block"}}>{title}</Text>
-              <Text style={{display: "block"}}>共10个商品</Text>
+        <View style={{display: "flex", marginBottom: "15px", flexDirection: "column"}}>
+          <View style={{display: "flex"}}>
+            <Sidebar activeKey={activeKey} 
+              onChange={(event) => {
+                setActiveKey(event.detail)
+                setTitle(data[event.detail].title)
+              }}
+              style={{width: "100px", flex: "1 0 auto"}}
+            >
+              {
+                data?.map((item) => {
+                  return <SidebarItem title={item.title} className={data[activeKey].title === item.title ? "myactive" : "myunactive"}/>
+                })
+              }
+            </Sidebar>
+            <View style={{flex: "2 0 auto", backgroundColor: "#e8eaec"}}>
+              <View style={{marginLeft: "10px", marginTop: "15px", color: "#515a6e", backgroundColor: "#e8eaec"}}>
+                <View style={{marginBottom: "15px"}}>
+                    <Text style={{display: "block"}}>{title}</Text>
+                    <Text style={{display: "block"}}>共10个商品</Text>
+                </View>
+                <View>
+                  <ProductItem list={list} height={height} />
+                </View>
+              </View>
             </View>
+          </View>
+          <View style={{width: "100%", backgroundColor: "#fafafa", height: "100px", display:"flex", alignItems: "center", justifyContent:"space-between", borderTop: "1px solid #e8eaec", zIndex: 999, position: "fixed", bottom:0}}>
+              {
+                length ? <View>
+                  <Text>0件商品，合价</Text>
+                  <Text style={{fontSize: "25px", marginLeft: "5px", color: "#1296db"}}>¥0</Text>
+                </View>
+                : <View style={{color: "#bfbfbf"}}>未选购商品</View>
+              }
+              <Button color="#1296db" style="margin: 0 5px 0 0; width: 150px" disabled={disabled} onClick={() => {Taro.navigateTo({url: "/pages/playbill/component/payprocess"})}}>选好了</Button>
           </View>
         </View>
     )

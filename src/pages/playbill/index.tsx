@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Taro from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
-import { Button, Image, Icon, Grid, GridItem, Row, Col, Tag } from "@antmjs/vantui"; 
+import { Image, Icon, Grid, GridItem, Tag } from "@antmjs/vantui"; 
 
 import "./index.less"
 
@@ -27,29 +27,26 @@ const PlayBill = () => {
 
       return (
           <View className="page">
-              <Row>
-                <Col span="12">
-                  <Text style={{fontSize: '30px'}}>
-                  商品海报
-                </Text>
-                {
-                  data?.length ? <Tag type="primary" plain={ true } size={"medium"} style={{bottom: '5px'}}>
-                    {data?.length}件商品
-                  </Tag>
-                  : <Tag type="primary" plain={ true } size={"medium"} style={{bottom: '5px'}}>
-                  0件商品
-                </Tag>
-                }
-                {/* <Text>{data?.length}件商品</Text> */}
-              </Col>
-              </Row>
+              <View>
+                <Text style={{fontSize: '30px'}}>
+                      商品海报
+                    </Text>
+                  {
+                    data?.length ? <Tag type="primary" plain={ true } size={"medium"} style={{bottom: '5px'}}>
+                      {data?.length}件商品
+                      </Tag>
+                      : <Tag type="primary" plain={ true } size={"medium"} style={{bottom: '5px'}}>
+                      0件商品
+                    </Tag>
+                  }
+              </View>
               <Grid
                 columnNum={3}
                 border={ false }
+                // square={ true }
               >
               {
                   data?.slice(0,3).map((item: any) => {
-                    console.log(item, "item")
                     return  (
                       <GridItem linkType="navigateTo" url={`/pages/productdetail/index?id=${item.id}`}>
                         <Image className="img" src={item.picture} />

@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useReducer, useLayoutEffect} from "react";
 import Taro from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
-import { Icon, Button, Image, Divider, Stepper } from "@antmjs/vantui";
+import { Icon, Button, Image, Divider, Stepper, ShareSheet } from "@antmjs/vantui";
 import * as dayjs from 'dayjs'
 
 import QuickBillReducer from '/src/reducer/index'
@@ -119,6 +119,9 @@ const PlayDetail = () => {
                             color="#07c160"
                             plain={ true }
                             // style="display: inline"
+                            onClick={() => {
+                                
+                            }}
                         >分享
                         </Button>
                     </View>
