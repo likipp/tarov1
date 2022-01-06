@@ -13,8 +13,8 @@ const Share = (props) => {
     name: '保存主页海报',
     icon: poster
   }]])
-  
-  
+
+
 
   return (
       <View>

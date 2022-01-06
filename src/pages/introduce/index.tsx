@@ -6,13 +6,14 @@ import { Image, Icon, Divider, Cell, ShareSheet, Button, ActionSheet } from "@an
 import './index.less'
 import cposter from "/src/pages/static/images/poster.png"
 import cwechat from "/src/pages/static/images/cwechat.png"
+import qr from "/src/pages/static/images/qr.jpg"
 
 import Share from "./component/share";
 
 const Introduct = () => {
     const [data, setData] = useState([])
     const [showShare, setShowShare] = useState(false)
-    // const [show, setShow] = useState(false)
+    const [showRetailer, setShowRetailer] = useState(false)
     
     useEffect(() => {
         Taro.getUserInfo({
@@ -87,7 +88,14 @@ const Introduct = () => {
                     <View style={{marginBottom: '15px', marginTop: '15px', fontSize: '15px', display: 'flex'}}>
                         <View>
                             <Icon name="chat" color="#19be6b"></Icon>
-                            <Text style={{marginLeft: '5px'}}>联系商家</Text>
+                            <View style={{marginLeft: '5px', display: "inline"}} onClick={() => {
+                                Taro.hideTabBar({
+                                    animation: true,
+                                    success: () => {
+                                        setShowRetailer(true)
+                                    }
+                                })
+                            }}>联系商家</View>
                         </View>
                         <View style={{margin: '0 55px', color: '#e8eaec'}}>|</View>
                         <View>
@@ -113,7 +121,6 @@ const Introduct = () => {
                             setShowShare(false)
                         }
                     })
-                    
                 } >
                     <Divider />
                     <View style={{display: "flex", justifyContent: "space-around"}}>
@@ -124,7 +131,6 @@ const Introduct = () => {
                             <Text style="margin: 10px 0">发送给朋友</Text>
                         </View>
                         <View style={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center"}} onClick={() => {
-                            // console.log("保存主页海报")
                             Taro.saveImageToPhotosAlbum({
                                 filePath: "",
                                 success: (res) => {
@@ -136,6 +142,22 @@ const Introduct = () => {
                             <Text style="margin: 10px 0">保存主页海报</Text>
                         </View>
                     </View>
+                </ActionSheet>
+                : <></>
+            }
+            {
+                showRetailer ? <ActionSheet show={showRetailer} title={"长按识别二维码，联系商家"} onClose={() => 
+                    Taro.showTabBar({
+                        animation: true,
+                        success: () => {
+                            setShowRetailer(false)
+                        }
+                    })
+                }>
+                        <View style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
+                            <View style={{color:"#808695"}}>方便你咨询商品和获得售后服务</View>
+                            <Image src={qr} height={400} width={400} style={{padding: "15px 40px 40px 40px"}} showMenuByLongpress={true} />
+                        </View>
                 </ActionSheet>
                 : <></>
             }
