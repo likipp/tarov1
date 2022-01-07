@@ -1,7 +1,7 @@
 import React, {useEffect, useLayoutEffect, useState} from "react";
 import Taro from "@tarojs/taro";
 import {View, Text} from "@tarojs/components"
-import { Image, Icon, Divider, Cell, ShareSheet, Button, ActionSheet } from "@antmjs/vantui"; 
+import { Image, Icon, Divider, Cell, ShareSheet, Button, ActionSheet } from "@antmjs/vantui";
 
 import './index.less'
 import cposter from "/src/pages/static/images/poster.png"
@@ -14,8 +14,24 @@ const Introduct = () => {
     const [data, setData] = useState([])
     const [showShare, setShowShare] = useState(false)
     const [showRetailer, setShowRetailer] = useState(false)
-    
+
     useEffect(() => {
+        wx.getSetting({
+            success (res) {
+              if (!res.authSetting['scope.writePhotosAlbum']) { //判断权限
+                wx.authorize({ //获取权限
+                    scope: 'scope.writePhotosAlbum',
+                    success() {
+                        console.log('授权成功')
+                        //转化路径
+                        // self.saveImg();
+                    }
+                })
+            } else {
+                // self.saveImg();
+            }
+            }
+          })
         Taro.getUserInfo({
             lang: 'zh_CN',
             // desc: '获取你的昵称, 头像, 地区及性别',
@@ -39,7 +55,7 @@ const Introduct = () => {
     return (
         <View style={{position: 'relative', marginBottom: '160px'}}>
             <View style={{display: "block", zIndex:80}} >
-                <Image src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic3.zhimg.com%2Fv2-e697bd2af1d5178f850bcc0853686826_b.jpg&refer=http%3A%2F%2Fpic3.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642232956&t=763a26da9c564d72030f42f1d03f3209" 
+                <Image src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic3.zhimg.com%2Fv2-e697bd2af1d5178f850bcc0853686826_b.jpg&refer=http%3A%2F%2Fpic3.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642232956&t=763a26da9c564d72030f42f1d03f3209"
                 style="position: 'relative'"
                 // width="10rem"
                 width="100%"
@@ -114,7 +130,7 @@ const Introduct = () => {
             </View>
             {
                 // showShare ? <Share showShare={showShare} /> : <></>
-                showShare ? <ActionSheet show={showShare} title="分享主页" onClose={() => 
+                showShare ? <ActionSheet show={showShare} title="分享主页" onClose={() =>
                     Taro.showTabBar({
                         animation: true,
                         success: () => {
@@ -146,7 +162,7 @@ const Introduct = () => {
                 : <></>
             }
             {
-                showRetailer ? <ActionSheet show={showRetailer} title={"长按识别二维码，联系商家"} onClose={() => 
+                showRetailer ? <ActionSheet show={showRetailer} title={"长按识别二维码，联系商家"} onClose={() =>
                     Taro.showTabBar({
                         animation: true,
                         success: () => {
